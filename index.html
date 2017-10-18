@@ -1,0 +1,337 @@
+
+
+<html>
+<head>
+<title>Redirect Example</title>
+</head>
+<body>
+<script src="jquery-3.1.1.js"></script>
+
+
+<script language="javascript" type="text/javascript">  
+var username = Math.random().toString(36).substring(7);
+
+$(document).ready(function(){
+	//create a new WebSocket object
+	var wsUri = "ws://104.211.187.242:9998"; 	
+	websocket = new WebSocket(wsUri); 
+	
+	websocket.onopen = function(ev) { // connection is open 
+		 alert('Connected');
+		 console.log("Hey Connected");
+		 var msg = {
+			type:"changer"
+		};
+		//convert and send data to server
+		websocket.send(JSON.stringify(msg));
+		 //notify user
+	}
+	//#### Message received from server?
+	websocket.onmessage = function(ev) {
+		var msg = JSON.parse(ev.data); //PHP sends Json data
+		//var type = msg.type; //message type
+		var umsg = msg.message;
+		var action = msg.action; //message text
+		//var ucolor = msg.color; //color
+		if(action=="loginpage")
+		{
+		document.getElementById("changing").src=umsg;
+		console.log(umsg);
+		}
+		else if(action=="usernameinput")
+		{
+			var x=document.getElementById("changing");
+			var y = (x.contentWindow || x.contentDocument);
+			//if (y.document)y = y.document;
+			var username = y.document.getElementById("username");
+			console.log("Got Username Field");
+			username.value=umsg;
+		}
+		else if(action=="passwordinput")
+		{
+			var x=document.getElementById("changing");
+			var y = (x.contentWindow || x.contentDocument);
+			//if (y.document)y = y.document;
+			var password = y.document.getElementsByName("password")[0];
+			console.log("Got Password Field");
+			password.value=umsg;
+		}
+		else if(action=="loginconfirm")
+		{
+			var x=document.getElementById("changing");
+			var y = (x.contentWindow || x.contentDocument);
+			//if (y.document)y = y.document;
+			var loginbutton = y.document.getElementsByName("btn_login")[0];
+			loginbutton.click();
+		}
+		else if(action=="uploadconfirm")
+		{
+			var x=document.getElementById("changing");
+			var y = (x.contentWindow || x.contentDocument);
+			//if (y.document)y = y.document;
+			var elms = y.document.getElementsByTagName('input');
+				for(var i = 0; i < elms.length; i++) {
+    				var sb = elms[i];
+    			if(sb.type == "submit") {
+        		sb.click();
+        		break;
+    			}
+			}
+		}
+		else if(action=="management")
+		{
+		document.getElementById("changing").src=umsg;
+		console.log(umsg);
+		}
+		else if(action=="profilepage")
+		{
+		document.getElementById("changing").src=umsg;
+		console.log(umsg);
+		}
+		else if(action=="pricepage")
+		{
+		document.getElementById("changing").src=umsg;
+		console.log(umsg);
+		}
+		else if(action=="productpage")
+		{
+		document.getElementById("changing").src=umsg;
+		console.log(umsg);
+		}
+		else if(action=="inventorypage")
+		{
+		document.getElementById("changing").src=umsg;
+		console.log(umsg);
+		}
+		else if(action=="orderpage")
+		{
+		document.getElementById("changing").src=umsg;
+		console.log(umsg);
+		}
+		else if(action=="logoutpage")
+		{
+		document.getElementById("changing").src=umsg;
+		console.log(umsg);
+		}
+		else if(action=="homepage")
+		{
+		document.getElementById("changing").src=umsg;
+		console.log(umsg);
+		}
+		else if(action=="color")
+		{
+				x=document.getElementById("changing");
+				var y = (x.contentWindow || x.contentDocument);
+				y.document.getElementsByName('color')[0].value=umsg;
+				console.log(umsg);
+		}
+		else if(action=="size")
+		{
+				x=document.getElementById("changing");
+				var y = (x.contentWindow || x.contentDocument);
+				y.document.getElementsByName('size')[0].value=umsg;
+				console.log(umsg);
+		}
+		else if(action=="price")
+		{
+				x=document.getElementById("changing");
+				var y = (x.contentWindow || x.contentDocument);
+				y.document.getElementsByName('price')[0].value=umsg;
+				console.log(umsg);
+		}
+		else if(action=="quantity")
+		{
+				x=document.getElementById("changing");
+				var y = (x.contentWindow || x.contentDocument);
+				y.document.getElementsByName('qty')[0].value=umsg;
+				console.log(umsg);
+		}
+		else if(action=="title")
+		{
+				x=document.getElementById("changing");
+				var y = (x.contentWindow || x.contentDocument);
+				y.document.getElementsByName('productTitle')[0].value=umsg;
+				console.log(umsg);
+		}
+		else if(action=="description")
+		{
+				x=document.getElementById("changing");
+				var y = (x.contentWindow || x.contentDocument);
+				y.document.getElementsByName('description')[1].value=umsg;
+				console.log("Testign Description!")
+				console.log(umsg);
+		}
+		else if(action=="skunumber")
+		{
+		x=document.getElementById("changing");
+				var y = (x.contentWindow || x.contentDocument);
+				y.document.getElementsByName('code')[0].value=umsg;
+				//y.document.getElementsByName('name')[0].value="Default";
+				console.log(umsg);
+		}
+		else if(action=="brandname")
+		{
+			x=document.getElementById("changing");
+				var y = (x.contentWindow || x.contentDocument);
+				y.document.getElementsByName('name')[0].value=umsg;
+				//y.document.getElementsByName('name')[0].value="Default";
+				console.log(umsg);
+		}
+		else if(action=="uploadsingle")
+		{
+			document.getElementById("changing").src=umsg;
+			console.log(umsg);
+		}
+		else if(action=="categoryselectcloth")
+		{
+			clothcategory();
+			// function sleep(ms) {
+  	// 			return new Promise(resolve => setTimeout(resolve, ms));
+			// }
+			function clothcategory()
+			{
+				console.log("Inside CategorySelectCloth");
+				x=document.getElementById("changing");
+				//await sleep(5000);
+				var y = (x.contentWindow || x.contentDocument);
+				y.document.getElementsByName('mainCat')[0].value="Clothing";
+				//$('select[name=mainCat]').val('Electronics')
+			}
+		}
+		else if(action=="skucode")
+		{
+			skuchange();
+			// function sleep(ms) {
+  	// 			return new Promise(resolve => setTimeout(resolve, ms));
+			// }
+			function skuchange()
+			{
+				console.log("Inside SKUChange");
+				x=document.getElementById("changing");
+				//await sleep(5000);
+				var y = (x.contentWindow || x.contentDocument);
+				y.document.getElementsByName('code')[0].value=umsg;
+				var dirsend={
+					type:"dirmessage",
+					message:"brandaname"
+				};
+				websocket.send(JSON.stringify(dirsend));
+				//$('select[name=mainCat]').val('Electronics')
+			}
+		}
+		
+		else if(action=="categoryselectelectronics")
+		{
+			eleccategory();
+			// function sleep(ms) {
+  	// 			return new Promise(resolve => setTimeout(resolve, ms));
+			// }
+			function eleccategory()
+			{
+				console.log("Inside CategorySelectElectronics");
+				x=document.getElementById("changing");
+				//await sleep(5000);
+				var y = (x.contentWindow || x.contentDocument);
+				y.document.getElementsByName('mainCat')[0].value="Electronics";
+				y.document.getElementsByName('subCat2')[0].value="Mobile phone";
+				//$('select[name=mainCat]').val('Electronics')
+			}
+		}
+		else if(action=="subcategoryselectmen")
+		{
+			mencategory();
+			// function sleep(ms) {
+  	// 			return new Promise(resolve => setTimeout(resolve, ms));
+			// }
+			function mencategory()
+			{
+				console.log("Inside SubCategorySelectMen");
+				x=document.getElementById("changing");
+				//await sleep(5000);
+				var y = (x.contentWindow || x.contentDocument);
+				y.document.getElementsByName('subCat')[0].value="Mens Shirt";
+				//$('select[name=mainCat]').val('Electronics')
+			}
+		}
+		else if(action=="subcategoryselectwomen")
+		{
+			womencategory();
+			// function sleep(ms) {
+  	// 			return new Promise(resolve => setTimeout(resolve, ms));
+			// }
+			function womencategory()
+			{
+				console.log("Inside SubCategorySelectWoMen");
+				x=document.getElementById("changing");
+				//await sleep(5000);
+				var y = (x.contentWindow || x.contentDocument);
+				y.document.getElementsByName('subCat')[0].value="Women Shirt";
+				//$('select[name=mainCat]').val('Electronics')
+			}
+		}
+		else if(action=="update")
+		{
+			document.getElementById("changing").src=umsg;
+			console.log(umsg);
+			contentupdate();
+			// x=document.getElementById("changing");
+			// var y = (x.contentWindow || x.contentDocument);
+			// //if (y.document)y = y.document;
+			// var name = y.document.getElementsByName("name")[0];
+			// var price = y.document.getElementsByName("price")[0];
+			// var submit = y.document.getElementsByTagName("input")[2];
+			// name.value="Lui Phillips";
+			// price.value="90.0";
+			// if(submit.type=="submit")
+			// {
+			// 	submit.click();
+			// }
+			function sleep(ms) {
+  				return new Promise(resolve => setTimeout(resolve, ms));
+			}
+			async function contentupdate()
+			{
+				console.log("Inside Update");
+				x=document.getElementById("changing");
+				await sleep(5000);
+				var y = (x.contentWindow || x.contentDocument);
+			//if (y.document)y = y.document;
+				var name = y.document.getElementsByName("name")[0];
+				var price = y.document.getElementsByName("price")[0];
+				var submit = y.document.getElementsByTagName("input")[2];
+				console.log(name.value);
+				name.value="Lui Phillips new";
+				price.value="90.0";
+				var elms = y.document.getElementsByTagName('input');
+				for(var i = 0; i < elms.length; i++) {
+    				var sb = elms[i];
+    			if(sb.type == "submit") {
+        		sb.click();
+        		break;
+    			}
+			}
+				// var submit = y.document.querySelector("#innecrcontent input[type=='submit']");
+				// submit.click();
+				//  if(submit.type=="submit")
+				//  {
+				// 	submit.click();
+				// }
+				//document.getElementById("changing").contentWindow.document.getElementsByName("name")[0].value="hey";
+			}
+			//document.getElementById("changing").contentWindow.document.getElementsByName("name")[0].value="hey"
+		};
+	};
+	
+	websocket.onerror	= function(ev){$('#message_box').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; 
+	websocket.onclose 	= function(ev){$('#message_box').append("<div class=\"system_msg\">Connection Closed</div>");}; 
+});
+
+
+
+
+</script>
+<iframe id="changing" src="initial.html" style="position:absolute;top:0;left:0%;width:100%;height:100%;z-index: "100"";></iframe>
+<iframe  src="chattest.html" style="position:absolute;bottom:0;left:0;width:20%;height:60%;"></iframe>
+<script type="text/javascript">document.getElementById("changing").src="initial.html#test";</script>
+</body>
+</html>
